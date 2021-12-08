@@ -3,6 +3,7 @@ package com.example.userservice.web.controller;
 import com.example.userservice.crud.UserRepository;
 import com.example.userservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,6 +15,8 @@ public class UserController {
 
     @Autowired
     private UserRepository dao;
+    @Value("${me}")
+    private String me;
 
     @GetMapping(value="/Users")
     public Iterable<User> getLesUser(){
@@ -38,5 +41,10 @@ public class UserController {
     @PutMapping(value="/Users")
     public void updateUser(@RequestBody User u){
         dao.save(u);
+    }
+
+    @GetMapping(value="/Cestqui")
+    public String getName(){
+        return me;
     }
 }
